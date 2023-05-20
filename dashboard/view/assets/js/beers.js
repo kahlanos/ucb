@@ -60,7 +60,11 @@ function construirFila(datos) {
 
     var titulo = document.createElement('td');
     titulo.className = "phone px-4 py-3 text-sm";
-    titulo.innerHTML = datos.fecha_distrib;
+    if (datos.fecha_distrib == '0000-00-00') {
+        titulo.innerHTML = 'N/A';
+    } else {
+        titulo.innerHTML = datos.fecha_distrib;
+    }   
     linea.appendChild(titulo);
 
 
@@ -70,13 +74,13 @@ function construirFila(datos) {
     linea.appendChild(titulo);
 
     var titulo = document.createElement('td');
-    titulo.className = "alta px-4 py-3 text-sm";
-    var img = document.createElement('img');
+    titulo.className = "alta px-4 py-3 text-sm";  
     if (datos.img_tapon != "") {
+        var img = document.createElement('img');
         img.src = '../view/assets/img/tapones/' + datos.id + '/' + datos.img_tapon;
         img.className = 'w-12 h-12 rounded-lg';
-    }
-    titulo.appendChild(img);
+        titulo.appendChild(img);
+    }   
     linea.appendChild(titulo);
 
 

@@ -33,6 +33,8 @@ class beerController
 
         $db->editBeer($id, $_POST['nombre'], $_POST['estilo'], $_POST['descripcion'], $_POST['fecha_fabric'], $_POST['fecha_distrib'], $_POST['consumo_pref'], $_POST['alcohol'], $_POST['temp_guardado'], $_POST['ibus'], $_FILES['img_tapon']['name'], $_FILES['img_botella']['name']);
 
+        var_dump($_FILES['img_tapon']);
+        
         if (isset($_FILES['img_tapon'])) {
             $this->subeImg($_FILES['img_tapon'], $id, 'tapones');
         }

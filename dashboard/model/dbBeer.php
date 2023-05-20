@@ -60,12 +60,16 @@ class dbBeer {
             $con = new Conexion();
             $db = $con->getConexion();
 
+            $sql2 = "SELECT img_tapon, img_botella FROM beers WHERE id = '$id'";
+            $r = $db->query($sql2);
+            $img = $r->fetch();
+
             if ($img_tapon == "") {
-                $img_tapon = NULL;
+               $img_tapon = $img['img_tapon']; 
             }
             if ($img_botella == "") {
-                $img_botella = NULL;
-            }
+                $img_botella = $img['img_botella']; 
+             }
 
 
             $sql = "UPDATE beers set nombre = '$nombre', estilo = '$estilo', descripcion = '$descripcion', fecha_fabric = '$fecha_fabric', fecha_distrib = '$fecha_distrib', consumo_pref = '$consumo_pref', alcohol = '$alcohol', temp_guardado = '$temp_guardado', ibus = '$ibus', img_tapon = '$img_tapon', img_botella = '$img_botella'

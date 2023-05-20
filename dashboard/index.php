@@ -66,4 +66,4 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     $beerController->addBeerProcess();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && $array_ruta[1] == "add") {
     $beerController->addBeer();
-}
+} 
