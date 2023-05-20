@@ -3,12 +3,16 @@ session_start();
 require("utils/conexion.php");
 
 require("controller/userController.php");
+require("controller/beerController.php");
 
 require("model/User.php");
 require("model/dbUser.php");
+require("model/Beer.php");
+require("model/dbBeer.php");
 
 
 $userController = new userController;
+$beerController = new beerController;
 
 //Ruta de la home
 $home = "/ucb/dashboard/index.php/";
@@ -46,4 +50,20 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     $userController->addUserProcess();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "users" && $array_ruta[1] == "add") {
     $userController->addUser();
-} 
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && empty($array_ruta[1])) {
+    
+    $beerController->beers();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "loadBeers" && empty($array_ruta[1])) {
+    
+    echo $beerController->loadBeers();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && is_numeric($array_ruta[1]) && !empty($array_ruta[2]) && $array_ruta[2] == "process") {
+    $beerController->editBeer($array_ruta[1]);
+}  else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && is_numeric($array_ruta[1])) {
+    $beerController->fichaBeer($array_ruta[1]);
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "beerDelete" && is_numeric($array_ruta[1])) {
+    $beerController->deleteBeer($array_ruta[1]);
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && $array_ruta[1] == "add" && !empty($array_ruta[2]) && $array_ruta[2] == "process") {   
+    $beerController->addBeerProcess();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && $array_ruta[1] == "add") {
+    $beerController->addBeer();
+}
