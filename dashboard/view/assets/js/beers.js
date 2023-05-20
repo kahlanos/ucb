@@ -89,6 +89,7 @@ function construirFila(datos) {
     titulo.className = "acciones px-4 py-3";
     var div = document.createElement('div');
     div.className = 'flex items-center space-x-4 text-sm';
+
     var a = document.createElement('a');
     a.className = 'flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray';
     a.href = 'beers/' + datos.id;
@@ -117,6 +118,8 @@ function construirFila(datos) {
     svg2.appendChild(path2);
     a2.appendChild(svg2);
     div.appendChild(a2);
+
+    
 
     titulo.appendChild(div);
     linea.appendChild(titulo);

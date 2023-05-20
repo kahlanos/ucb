@@ -4,15 +4,23 @@ require("utils/conexion.php");
 
 require("controller/userController.php");
 require("controller/beerController.php");
+require("controller/deliveryController.php");
+require("controller/reviewController.php");
 
 require("model/User.php");
 require("model/dbUser.php");
 require("model/Beer.php");
 require("model/dbBeer.php");
+require("model/dbDelivery.php");
+require("model/Delivery.php");
+require("model/dbReview.php");
+require("model/Review.php");
 
 
 $userController = new userController;
 $beerController = new beerController;
+$deliveryController = new deliveryController;
+$reviewController = new reviewController;
 
 //Ruta de la home
 $home = "/ucb/dashboard/index.php/";
@@ -66,4 +74,7 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     $beerController->addBeerProcess();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && $array_ruta[1] == "add") {
     $beerController->addBeer();
-} 
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "deliveries" && empty($array_ruta[1])) {
+    
+    $deliveryController->deliveries();
+}
