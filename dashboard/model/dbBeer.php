@@ -52,7 +52,7 @@ class dbBeer {
         return $beer;
     }
 
-    public function editBeer($id, $nombre, $estilo, $descripcion, $fecha_fabric, $fecha_distrib, $consumo_pref, $alcohol, $temp_guardado, $ibus, $img_tapon, $img_botella)
+    public function editBeer($id, $nombre, $estilo, $descripcion, $fecha_fabric, $fecha_distrib, $consumo_pref, $alcohol, $temp_guardado, $ibus, $img_tapon, $img_botella, $detalles)
     {
 
         try {
@@ -60,7 +60,7 @@ class dbBeer {
             $con = new Conexion();
             $db = $con->getConexion();
 
-            $sql2 = "SELECT img_tapon, img_botella FROM beers WHERE id = '$id'";
+            $sql2 = "SELECT img_tapon, img_botella, detalles FROM beers WHERE id = '$id'";
             $r = $db->query($sql2);
             $img = $r->fetch();
 
@@ -70,9 +70,12 @@ class dbBeer {
             if ($img_botella == "") {
                 $img_botella = $img['img_botella']; 
              }
+             if ($detalles == "") {
+                $detalles = $img['detalles']; 
+             }
 
 
-            $sql = "UPDATE beers set nombre = '$nombre', estilo = '$estilo', descripcion = '$descripcion', fecha_fabric = '$fecha_fabric', fecha_distrib = '$fecha_distrib', consumo_pref = '$consumo_pref', alcohol = '$alcohol', temp_guardado = '$temp_guardado', ibus = '$ibus', img_tapon = '$img_tapon', img_botella = '$img_botella'
+            $sql = "UPDATE beers set nombre = '$nombre', estilo = '$estilo', descripcion = '$descripcion', fecha_fabric = '$fecha_fabric', fecha_distrib = '$fecha_distrib', consumo_pref = '$consumo_pref', alcohol = '$alcohol', temp_guardado = '$temp_guardado', ibus = '$ibus', img_tapon = '$img_tapon', img_botella = '$img_botella', detalles = '$detalles'
              WHERE id = '$id'";
             $db->query($sql);
         } catch (PDOException $e) {
@@ -99,14 +102,14 @@ class dbBeer {
         $db = NULL;
     }
 
-    public function addBeer($nombre, $estilo, $descripcion, $fecha_fabric, $fecha_distrib, $consumo_pref, $alcohol, $temp_guardado, $ibus, $img_tapon, $img_botella) {
+    public function addBeer($nombre, $estilo, $descripcion, $fecha_fabric, $fecha_distrib, $consumo_pref, $alcohol, $temp_guardado, $ibus, $img_tapon, $img_botella, $detalles) {
 
         try {
 
             $con = new Conexion();
             $db = $con->getConexion();
 
-            $sql = "INSERT into beers (nombre, estilo, descripcion, fecha_fabric, fecha_distrib, consumo_pref, alcohol, temp_guardado, ibus, img_tapon, img_botella) values('$nombre', '$estilo', '$descripcion', '$fecha_fabric', '$fecha_distrib', '$consumo_pref', '$alcohol', '$temp_guardado', '$ibus', '$img_tapon', '$img_botella')";
+            $sql = "INSERT into beers (nombre, estilo, descripcion, fecha_fabric, fecha_distrib, consumo_pref, alcohol, temp_guardado, ibus, img_tapon, img_botella, detalles) values('$nombre', '$estilo', '$descripcion', '$fecha_fabric', '$fecha_distrib', '$consumo_pref', '$alcohol', '$temp_guardado', '$ibus', '$img_tapon', '$img_botella', '$detalles')";
             $db->query($sql);
 
             $id = $db->lastInsertId();
@@ -119,6 +122,33 @@ class dbBeer {
 
         return $id;
 
+    }
+
+    public function getBeersByName() {
+
+        try {
+
+            $beers = [];
+ 
+            $con = new Conexion();
+            $db = $con->getConexion();
+ 
+            $sql = "SELECT nombre FROM beers";
+            $res = $db->query($sql);
+            
+ 
+            foreach( $res as $c) {
+                $beers[] = $c['nombre'];
+            }
+ 
+ 
+         } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+ 
+        $db = NULL;
+ 
+        return $beers;
     }
 
 

@@ -145,6 +145,23 @@
                                     ?>
                                 </div>
                             </div>
+                            <div class="flex flex-col mt-6 text-sm">
+                                <label class="block text-sm">
+                                    <span class="text-gray-700 dark:text-gray-400">Detalles de composición</span>
+                                    <input
+                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                        value="<?php echo $res->getDetalles() ?>" name="detalles" type="file"
+                                        id="detalles" accept=".pdf"/>
+                                </label>
+                                <div class="my-6">
+                                    <?php
+                                    $pdf = $res->getDetalles();
+                                if ($pdf != "" && $pdf != NULL && $pdf != 'NULL') {
+                                    echo "<a href='$id/descarga' class='font-bold text-blue-600 dark:text-purple-400 hover:underline'>Descarga los detalles de composición</a>";
+                                }
+                                ?>
+                                </div>
+                            </div>
                             <div class="flex space-x-6 my-6">
                                 <button type="submit"
                                     class="m-6 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">

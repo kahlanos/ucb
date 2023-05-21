@@ -36,7 +36,9 @@ $array_ruta = array_filter(explode("/", $ruta));
 //RUTAS
 if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1])) {
     $userController->login();
-} else if (isset($array_ruta[0]) && $array_ruta[0] == "login" && $array_ruta[1] == "process") {
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "logout" && empty($array_ruta[1])) {
+    $userController->logout();
+}  else if (isset($array_ruta[0]) && $array_ruta[0] == "login" && $array_ruta[1] == "process") {
     $userController->process();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "home" && empty($array_ruta[1])) {
     $userController->home();
@@ -66,7 +68,9 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     echo $beerController->loadBeers();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && is_numeric($array_ruta[1]) && !empty($array_ruta[2]) && $array_ruta[2] == "process") {
     $beerController->editBeer($array_ruta[1]);
-}  else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && is_numeric($array_ruta[1])) {
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && is_numeric($array_ruta[1]) && !empty($array_ruta[2]) && $array_ruta[2] == "descarga") {
+    $beerController->descargaPdf($array_ruta[1]);
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && is_numeric($array_ruta[1])) {
     $beerController->fichaBeer($array_ruta[1]);
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "beerDelete" && is_numeric($array_ruta[1])) {
     $beerController->deleteBeer($array_ruta[1]);
@@ -78,6 +82,15 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     $reviewController->addReview($array_ruta[1]);
 }  else if (isset($array_ruta[0]) && $array_ruta[0] == "review" && is_numeric($array_ruta[1])) {
     $reviewController->review($array_ruta[1]);
+// } else if (isset($array_ruta[0]) && $array_ruta[0] == "reviews" && $array_ruta[1] == "loadFilters") {
+    
+//     echo $reviewController->loadFilters();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "reviews" && empty($array_ruta[1])) {
+    
+    $reviewController->reviews();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "loadReviews" && empty($array_ruta[1])) {
+    
+    echo $reviewController->loadReviews();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "deliveries" && empty($array_ruta[1])) {
     
     $deliveryController->deliveries();

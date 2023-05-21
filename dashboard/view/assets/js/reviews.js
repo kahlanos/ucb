@@ -1,14 +1,19 @@
 window.onload = pinta();
 
+var selectTypes = document.getElementById('types');
+var selectBeers = document.getElementById('beers');
+
 function pinta() {
     var urlBase = "http://localhost/ucb/dashboard/index.php/";
-    var accion = "loadBeers";
+    var accion = "loadReviews";
 
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-           
+
+
+
             var resultados=JSON.parse(this.responseText);
             console.log(resultados);
             

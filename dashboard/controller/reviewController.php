@@ -3,6 +3,23 @@
 class reviewController
 {
 
+    public function reviews()
+    {
+
+        $db = new DbBeer();
+        $res = $db->getBeersByName();
+
+        require("view/list_reviews.php");
+    }
+
+    public function loadReviews()
+    {
+        $db = new dbReview();
+        $res = $db->getReviews();
+
+        return $res;
+    }
+
     public function review($id)
     {
 
@@ -23,6 +40,14 @@ class reviewController
         $db->addReview($_SESSION['userId'], $idBeer, $_SESSION['rol'], $_POST['score'], $_POST['comment'], $date);
 
 
-        header("location: ../../../index.php/beers");
+        header("location: ../../index.php/beers");
+    }
+
+    function loadFilters() {
+
+        $db = new DbBeer();
+        $res = $db->getBeersByName();
+
+        return $res;
     }
 }
