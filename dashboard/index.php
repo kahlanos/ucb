@@ -74,6 +74,10 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     $beerController->addBeerProcess();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && $array_ruta[1] == "add") {
     $beerController->addBeer();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "review" && is_numeric($array_ruta[1]) && !empty($array_ruta[2]) && $array_ruta[2] == "process") {
+    $reviewController->addReview($array_ruta[1]);
+}  else if (isset($array_ruta[0]) && $array_ruta[0] == "review" && is_numeric($array_ruta[1])) {
+    $reviewController->review($array_ruta[1]);
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "deliveries" && empty($array_ruta[1])) {
     
     $deliveryController->deliveries();

@@ -12,7 +12,7 @@ class dbUser
             $con = new Conexion();
             $db = $con->getConexion();
 
-            $sql = "SELECT email, password, rol FROM users WHERE email = '$email' AND password = '$passw'";
+            $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$passw'";
             $res = $db->query($sql);
 
             $data = $res->fetch();

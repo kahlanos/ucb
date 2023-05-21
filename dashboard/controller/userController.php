@@ -11,24 +11,29 @@ class userController {
     }
 
     public function process() {
-
-        session_start();
        
         $db = new DbUser();
         $res = $db->getUser($_POST["email"], $_POST["password"]);
 
-        if ($res && $res->rol == 0) {
+
+        if ($res && $res['rol'] == 0) {
             $_SESSION["user"] = 'admin';
+            $_SESSION["userId"] = $res['id'];
+            $_SESSION["rol"] = $res['rol'];
             
             header("location: ../../index.php/home");
             
         } else if ($res && $res->rol == 1) {
             $_SESSION["user"] = 'encargado';
+            $_SESSION["userId"] = $res->id;
+            $_SESSION["rol"] = $res->rol;
 
             header("location: ../../index.php/home");
 
         } else if ($res && $res->rol == 2) {
             $_SESSION["user"] = 'socio';
+            $_SESSION["userId"] = $res->id;
+            $_SESSION["rol"] = $res->rol;
 
             header("location: ../../index.php/home");
 
