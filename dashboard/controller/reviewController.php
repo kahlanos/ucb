@@ -14,8 +14,10 @@ class reviewController
 
     public function loadReviews()
     {
+        
+        
         $db = new dbReview();
-        $res = $db->getReviews();
+        $res = $db->getReviews($_POST['tipo'], $_POST['beer']);
 
         return $res;
     }

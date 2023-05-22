@@ -8,7 +8,8 @@ function pinta() {
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-           
+
+                     
             var resultados=JSON.parse(this.responseText);
             console.log(resultados);
             
