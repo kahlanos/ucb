@@ -32,8 +32,10 @@ class dbReview
 
             if ($tipo == "admins") {
                 $sqlTipo = "WHERE (tipo = 0 OR tipo = 1)";
-            } else {
+            } else if ($tipo == "socios") {
                 $sqlTipo = "WHERE tipo = 2";
+            } else {
+                $sqlTipo = "WHERE (tipo = 0 OR tipo = 1 OR tipo = 2)";
             }
 
             if ($beer != "") {

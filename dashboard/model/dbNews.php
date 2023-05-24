@@ -11,6 +11,7 @@ class dbNews {
 
             $con = new Conexion();
             $db = $con->getConexion();
+            
 
             $sql = "SELECT * FROM news LIMIT 12";
             $res = $db->query($sql);

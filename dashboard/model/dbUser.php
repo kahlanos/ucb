@@ -65,7 +65,7 @@ class dbUser
     }
 
 
-    public function getUsers()
+    public function getUsers($search)
     {
 
         try {
@@ -75,7 +75,14 @@ class dbUser
             $con = new Conexion();
             $db = $con->getConexion();
 
-            $sql = "SELECT * FROM users LIMIT 12";
+            if ($search != "") {
+                
+                $like = "WHERE LOWER(nombre) LIKE '%$search%'";
+            } else {
+                $like = '';
+            }
+
+            $sql = "SELECT * FROM users ".$like. " LIMIT 12";
             $res = $db->query($sql);
 
             foreach ($res as $u) {

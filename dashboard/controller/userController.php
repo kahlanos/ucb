@@ -58,7 +58,7 @@ class userController {
 
     public function loadUsers() {
          $db = new DbUser();
-         $res = $db->getUsers();
+         $res = $db->getUsers(strtolower($_POST['search']));
  
          return $res;
     }

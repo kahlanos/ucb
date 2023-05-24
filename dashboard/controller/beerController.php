@@ -12,7 +12,7 @@ class beerController
     public function loadBeers()
     {
         $db = new DbBeer();
-        $res = $db->getBeers();
+        $res = $db->getBeers(strtolower($_POST['search']));
 
         return $res;
     }

@@ -3,7 +3,7 @@
 class dbBeer {
 
 
-    public function getBeers()
+    public function getBeers($search)
     {
 
         try {
@@ -13,7 +13,14 @@ class dbBeer {
             $con = new Conexion();
             $db = $con->getConexion();
 
-            $sql = "SELECT * FROM beers LIMIT 12";
+            if ($search != "") {
+                
+                $like = "WHERE LOWER(nombre) LIKE '%$search%'";
+            } else {
+                $like = '';
+            }
+
+            $sql = "SELECT * FROM beers ".$like." LIMIT 12";
             $res = $db->query($sql);
 
             foreach ($res as $u) {

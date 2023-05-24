@@ -9,10 +9,7 @@
     <link rel="stylesheet" href="../view/assets/css/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="../view/assets/js/init-alpine.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-    <script src="../view/assets/js/charts-lines.js" defer></script>
-    <script src="../view/assets/js/charts-pie.js" defer></script>
+
 </head>
 
 <body>
@@ -52,7 +49,7 @@
                                         </svg>
                                     </div>
                                     <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" 
-                                    onchange="pinta()" value="" type="text" id="search" placeholder="Busca por nombre" aria-label="Search" />
+                                    onkeyup="pinta()" value="" type="text" id="search" placeholder="Busca por nombre" aria-label="Search" />
                                 </div>
                             </div>
 

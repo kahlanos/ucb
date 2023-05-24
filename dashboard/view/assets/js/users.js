@@ -4,6 +4,9 @@ function pinta() {
     var urlBase = "http://localhost/ucb/dashboard/index.php/";
     var accion = "loadUsers";
 
+    var search = document.getElementById('search');
+    var params = "search="+search.value;
+
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function () {
@@ -14,6 +17,7 @@ function pinta() {
             console.log(resultados);
             
             var tabla = document.getElementById("tabla");
+            tabla.innerHTML = "";
             var body = document.createElement('tbody');
             body.className = 'bg-white divide-y dark:divide-gray-700 dark:bg-gray-800';
             var cabecera = construirCabecera();
@@ -27,9 +31,9 @@ function pinta() {
         }
     };
 
-    xmlhttp.open("GET", urlBase + accion, true);
+    xmlhttp.open("POST", urlBase + accion, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //para poder pasar parámetros
-    xmlhttp.send();
+    xmlhttp.send(params);
 
 }
 
