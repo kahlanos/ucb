@@ -94,4 +94,10 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "deliveries" && empty($array_ruta[1])) {
     
     $deliveryController->deliveries();
-}
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "loadDeliveries" && empty($array_ruta[1])) {
+    
+    echo $deliveryController->loadDeliveries();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "generateDeliveries") {
+    
+    $deliveryController->generaEntregas();
+} 
