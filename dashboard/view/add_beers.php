@@ -17,6 +17,14 @@
 </head>
 
 <body onload="cargaEncargados()">
+<!-- CONTROL -->
+<?php
+    if (isAdmin()) {
+               
+    } else {
+        header("location: login");
+    }
+    ?>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- SIDEBAR -->
         <?php include 'sidebar.php'; ?>

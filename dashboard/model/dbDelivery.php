@@ -44,7 +44,7 @@ class dbDelivery
             $db = $con->getConexion();
 
             $users = [];
-            $sql = "SELECT * FROM users WHERE fecha_baja = '000-00-00'";
+            $sql = "SELECT * FROM users WHERE fecha_baja = '000-00-00' AND rol = 2";
             $res = $db->query($sql);
 
             foreach ($res as $u) {
@@ -108,7 +108,7 @@ class dbDelivery
                 $sqlEnc = "";
             }
 
-            $sql2 = "SELECT * FROM deliveries d JOIN users u on d.id_socio = u.id " . $sqlMes . " " . $sqlEnc;
+            $sql2 = "SELECT d.id AS id_deliv, u.nombre, d.id_encargado, d.estado, d.fecha FROM deliveries d JOIN users u on d.id_socio = u.id " . $sqlMes . " " . $sqlEnc;
             $res2 = $db->query($sql2);
 
             foreach ($res2 as $d) {
@@ -116,7 +116,7 @@ class dbDelivery
                 $sql3 = "SELECT nombre FROM users WHERE id = '$idEnc'";
                 $res3 = $db->query($sql3);
                 $nombreEnc = $res3->fetch();
-                $deliv = new Delivery($d['id'], $d['nombre'], $nombreEnc['nombre'], $d['estado'], $d['fecha']);
+                $deliv = new Delivery($d['id_deliv'], $d['nombre'], $nombreEnc['nombre'], $d['estado'], $d['fecha']);
                 $delivs[] = $deliv;
             }
 
@@ -126,5 +126,51 @@ class dbDelivery
         $db = NULL;
 
         return json_encode($delivs);
+    }
+
+    public function cambiaEstado($id) {
+
+        try {
+
+            $con = new Conexion();
+            $db = $con->getConexion();
+
+            $sql = "SELECT estado FROM deliveries WHERE id = '$id'";
+            $res = $db->query($sql);
+            $i = $res->fetch();
+
+            if ($i['estado'] == 0) {
+                $newEstado = 1;
+            } else {
+                $newEstado = 0;
+            }
+
+            $sql2 = "UPDATE deliveries set estado = '$newEstado' WHERE id = '$id'";
+            $db->query($sql2);
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        } 
+        $db = NULL;
+
+   
+    }
+
+    public function deleteDelivery($id) {
+
+        try {
+
+            $con = new Conexion();
+            $db = $con->getConexion();
+
+            $sql = "DELETE FROM deliveries WHERE id = '$id'";
+            $res = $db->query($sql);
+
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+        $db = NULL;
     }
 };

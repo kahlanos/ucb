@@ -12,7 +12,9 @@ class dbUser
             $con = new Conexion();
             $db = $con->getConexion();
 
-            $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$passw'";
+            $encryptedPass = sha1($passw);
+
+            $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$encryptedPass'";
             $res = $db->query($sql);
 
             $data = $res->fetch();
@@ -119,7 +121,9 @@ class dbUser
                 $idEnc = 'NULL';
             }
 
-            $sql = "UPDATE users set nombre = '$nombre', email = '$email', password = '$password', phone = '$phone', n_cuenta = '$n_cuenta', rol = '$rol', encargado = '$idEnc', fecha_alta = '$fecha_alta', fecha_baja = '$fecha_baja', pagado = '$pagado'
+            $encryptedPass = sha1($password);
+
+            $sql = "UPDATE users set nombre = '$nombre', email = '$email', password = '$encryptedPass', phone = '$phone', n_cuenta = '$n_cuenta', rol = '$rol', encargado = '$idEnc', fecha_alta = '$fecha_alta', fecha_baja = '$fecha_baja', pagado = '$pagado'
              WHERE id = '$id'";
             $db->query($sql);
         } catch (PDOException $e) {
@@ -144,7 +148,9 @@ class dbUser
                 $idEnc = 'NULL';
             }
 
-            $sql = "INSERT into users (nombre, email, password, phone, n_cuenta, rol, encargado, fecha_alta, fecha_baja, pagado) values('$nombre', '$email', '$password', '$phone', '$n_cuenta', '$rol', '$idEnc', '$fecha_alta', '$fecha_baja', '$pagado')";
+            $encryptedPass = sha1($password);
+
+            $sql = "INSERT into users (nombre, email, password, phone, n_cuenta, rol, encargado, fecha_alta, fecha_baja, pagado) values('$nombre', '$email', '$encryptedPass', '$phone', '$n_cuenta', '$rol', '$idEnc', '$fecha_alta', '$fecha_baja', '$pagado')";
             $db->query($sql);
 
         } catch (PDOException $e) {

@@ -16,6 +16,14 @@
 </head>
 
 <body>
+    <!-- CONTROL -->
+    <?php
+    if (isAdmin() || isEncargado() || isSocio()) {
+               
+    } else {
+        header("location: login");
+    }
+    ?>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- SIDEBAR -->
         <?php include 'sidebar.php'; ?>

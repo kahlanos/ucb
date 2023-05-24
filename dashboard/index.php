@@ -1,11 +1,13 @@
 <?php
 session_start();
 require("utils/conexion.php");
+require("utils/control.php");
 
 require("controller/userController.php");
 require("controller/beerController.php");
 require("controller/deliveryController.php");
 require("controller/reviewController.php");
+require("controller/newsController.php");
 
 require("model/User.php");
 require("model/dbUser.php");
@@ -15,12 +17,15 @@ require("model/dbDelivery.php");
 require("model/Delivery.php");
 require("model/dbReview.php");
 require("model/Review.php");
+require("model/dbNews.php");
+require("model/News.php");
 
 
 $userController = new userController;
 $beerController = new beerController;
 $deliveryController = new deliveryController;
 $reviewController = new reviewController;
+$newsController = new newsController;
 
 //Ruta de la home
 $home = "/ucb/dashboard/index.php/";
@@ -100,4 +105,25 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "generateDeliveries") {
     
     $deliveryController->generaEntregas();
-} 
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "cambiaEstado") {
+    
+    $deliveryController->cambiaEstado();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "deliveryDelete" && is_numeric($array_ruta[1])) {
+    $deliveryController->deleteDelivery($array_ruta[1]);
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "news" && empty($array_ruta[1])) {
+    
+    $newsController->news();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "loadNews" && empty($array_ruta[1])) {
+    
+    echo $newsController->loadNews();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "news" && is_numeric($array_ruta[1]) && !empty($array_ruta[2]) && $array_ruta[2] == "process") {
+    $newsController->editNews($array_ruta[1]);
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "news" && is_numeric($array_ruta[1])) {
+    $newsController->fichaNews($array_ruta[1]);
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "newsDelete" && is_numeric($array_ruta[1])) {
+    $newsController->deleteNews($array_ruta[1]);
+}  else if (isset($array_ruta[0]) && $array_ruta[0] == "news" && $array_ruta[1] == "add" && !empty($array_ruta[2]) && $array_ruta[2] == "process") {   
+    $newsController->addNewsProcess();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "news" && $array_ruta[1] == "add") {
+    $newsController->addNews();
+}

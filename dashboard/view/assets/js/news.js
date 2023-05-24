@@ -1,53 +1,19 @@
 window.onload = pinta();
 
-function generaEntregas() {
-    
-    var urlBase = "http://localhost/ucb/dashboard/index.php/";
-    var accion = "generateDeliveries";
-
-    
-    let mes = document.getElementById('generador_mes').value;
-    var params = "mes="+mes;
-
-    xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            
-            var resultados=JSON.parse(this.responseText);
-            alert(resultados);
-        } 
-            
-    };
-
-    xmlhttp.open("POST", urlBase + accion, true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //para poder pasar parámetros
-    xmlhttp.send(params);
-}
-
-
 function pinta() {
-
     var urlBase = "http://localhost/ucb/dashboard/index.php/";
-    var accion = "loadDeliveries";
-
-    var mes = document.getElementById('filtro_mes');
-    var encargado = document.getElementById('encargado');
-    
-    var params = "mes="+mes.value+"&encargado="+encargado.selectedOptions[0].value;
+    var accion = "loadNews";
 
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
 
-            
-            
+                     
             var resultados=JSON.parse(this.responseText);
             console.log(resultados);
             
             var tabla = document.getElementById("tabla");
-            tabla.innerHTML = "";
             var body = document.createElement('tbody');
             body.className = 'bg-white divide-y dark:divide-gray-700 dark:bg-gray-800';
             var cabecera = construirCabecera();
@@ -61,9 +27,9 @@ function pinta() {
         }
     };
 
-    xmlhttp.open("POST", urlBase + accion, true);
+    xmlhttp.open("GET", urlBase + accion, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //para poder pasar parámetros
-    xmlhttp.send(params);
+    xmlhttp.send();
 
 }
 
@@ -80,37 +46,33 @@ function construirFila(datos) {
 
     var titulo = document.createElement('td');  
     titulo.className = "nombre px-4 py-3 text-sm";
-    titulo.innerHTML = datos.socio;    
+    titulo.innerHTML = datos.title;    
     linea.appendChild(titulo);
 
     var titulo = document.createElement('td');  
     titulo.className = "email px-4 py-3 text-sm" ;
-    titulo.innerHTML = datos.encargado;
+    titulo.innerHTML = datos.text;
     linea.appendChild(titulo);
 
     var titulo = document.createElement('td');
-    var btn = document.createElement('button');
-    var span = document.createElement('span');
-    //btn.className = "inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]";
-    btn.type = "button";
-    btn.addEventListener('click', () => {cambiaEstado(datos.id)});
-    titulo.className = "estado px-4 py-3 text-sm";
-    if (datos.estado === 0) {
-        span.innerHTML = 'Pendiente';
-        span.className = 'px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600';
-    } else if (datos.estado === 1) {
-        span.innerHTML = 'Entregado';
-        span.className = 'px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100';
-    } 
-    btn.appendChild(span);
-    titulo.appendChild(btn);
+    titulo.className = "alta px-4 py-3 text-sm";  
+    if (datos.img != "") {
+        var img = document.createElement('img');
+        img.src = '../view/assets/img/news/' + datos.id + '/' + datos.img;
+        img.className = 'w-12 h-12 rounded-lg';
+        titulo.appendChild(img);
+    }   
     linea.appendChild(titulo);
-
 
     var titulo = document.createElement('td');
-    titulo.className = " px-4 py-3";
-    titulo.innerHTML = datos.fecha;
+    titulo.className = "phone px-4 py-3 text-sm";
+    if (datos.fecha_distrib == '0000-00-00') {
+        titulo.innerHTML = 'N/A';
+    } else {
+        titulo.innerHTML = datos.date;
+    }   
     linea.appendChild(titulo);
+
 
 
     var titulo = document.createElement('td');
@@ -118,10 +80,24 @@ function construirFila(datos) {
     var div = document.createElement('div');
     div.className = 'flex items-center space-x-4 text-sm';
 
+    var a = document.createElement('a');
+    a.className = 'flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray';
+    a.href = 'news/' + datos.id;
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.classList.add('w-5');
+    svg.classList.add('h-5');
+    svg.setAttribute('fill', 'currentColor');
+    svg.setAttribute('viewBox', '0 0 20 20');  
+    var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', 'M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z');
+    svg.appendChild(path);
+    a.appendChild(svg);
+    div.appendChild(a);
+    
 
     var a2 = document.createElement('a');
     a2.className = 'flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray';
-    a2.href = 'deliveryDelete/' + datos.id;
+    a2.href = 'newsDelete/' + datos.id;
     var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg2.classList.add('w-5');
     svg2.classList.add('h-5');
@@ -148,28 +124,28 @@ function construirCabecera() {
 
 
     var titulo = document.createElement('th');
-    var texto = document.createTextNode("Usuario");
+    var texto = document.createTextNode("Título");
     titulo.className = 'px-4 py-3';
     titulo.scope = "col";
     titulo.appendChild(texto);
     cabecera.appendChild(titulo);
 
     var titulo = document.createElement('th');
-    var texto = document.createTextNode("Encargado");
+    var texto = document.createTextNode("Texto");
     titulo.className = 'px-4 py-3';
     titulo.scope = "col";
     titulo.appendChild(texto);
     cabecera.appendChild(titulo);
 
     var titulo = document.createElement('th');
-    var texto = document.createTextNode("Estado");
+    var texto = document.createTextNode("Imagen");
     titulo.className = 'px-4 py-3';
     titulo.scope = "col";
     titulo.appendChild(texto);
     cabecera.appendChild(titulo);
 
     var titulo = document.createElement('th');
-    var texto = document.createTextNode("Mes");
+    var texto = document.createTextNode("Fecha");
     titulo.className = 'px-4 py-3';
     titulo.scope = "col";
     titulo.appendChild(texto);
@@ -184,30 +160,4 @@ function construirCabecera() {
 
     head.appendChild(cabecera);
     return head;
-}
-
-function cambiaEstado(id) {
-
-    event.preventDefault();
-
-    var urlBase = "http://localhost/ucb/dashboard/index.php/";
-    var accion = "cambiaEstado";
-
-    
-    var params = "id="+id;
-
-    xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            
-            pinta();
-        } 
-            
-    };
-
-    xmlhttp.open("POST", urlBase + accion, true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //para poder pasar parámetros
-    xmlhttp.send(params);
-
 }

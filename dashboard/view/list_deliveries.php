@@ -16,6 +16,14 @@
 </head>
 
 <body>
+    <!-- CONTROL -->
+    <?php
+    if (isAdmin() || isEncargado()) {
+               
+    } else {
+        header("location: login");
+    }
+    ?>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- SIDEBAR -->
         <?php include 'sidebar.php'; ?>
@@ -40,7 +48,7 @@
                             </div>
 
                         </div>
-                        <div class="flex flex-col px-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 gap-6">
+                        <div class="flex flex-col px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
                             <label for="encargado" class="text-gray-700 dark:text-gray-400">
                                 Por encargado
                             </label>

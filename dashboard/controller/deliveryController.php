@@ -41,6 +41,7 @@ class deliveryController {
         return $res;
         
     }
+    
 
     public function loadDeliveries() {
 
@@ -49,6 +50,23 @@ class deliveryController {
         $res = $db->getDeliveries($_POST['mes'], $_POST['encargado']);
 
         return $res;
+    }
+
+
+    public function cambiaEstado() {
+
+        $db = new dbDelivery();
+
+        $db->cambiaEstado($_POST['id']);
+    }
+
+
+    public function deleteDelivery($id) {
+
+        $db = new dbDelivery();
+        $db->deleteDelivery($id);
+
+        header("location: ../../index.php/deliveries");
     }
 
 

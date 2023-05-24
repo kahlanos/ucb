@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UCC</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../view/assets/css/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="../../view/assets/js/init-alpine.js"></script>
@@ -17,6 +16,13 @@
 </head>
 
 <body onload="cargaEncargados()">
+    <!-- CONTROL -->
+    <?php
+    if (isAdmin() ) {
+    } else {
+        header("location: login");
+    }
+    ?>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- SIDEBAR -->
         <?php include 'sidebar.php'; ?>
@@ -34,42 +40,31 @@
                             <div class="my-6">
                                 <label class="block text-sm m-4">
                                     <span class="text-gray-700 dark:text-gray-400">Nombre</span>
-                                    <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php echo $res->getNombre()  ?> name="nombre" type="text" />
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value=<?php echo $res->getNombre()  ?> name="nombre" type="text" />
                                 </label>
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Email</span>
-                                    <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php echo $res->getEmail()  ?> name="email" type="email" />
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value=<?php echo $res->getEmail()  ?> name="email" type="email" />
                                 </label>
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Contraseña</span>
-                                    <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php echo $res->getPassword()  ?> name="password" type="password" />
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value=<?php echo $res->getPassword()  ?> name="password" type="password" placeholder="*********" />
                                 </label>
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Teléfono</span>
-                                    <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php echo $res->getPhone() ?> name="phone" type="tel" />
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value=<?php echo $res->getPhone() ?> name="phone" type="tel" />
                                 </label>
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Nº Cuenta</span>
-                                    <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php if ($res->getNCuenta() !== NULL) echo $res->getNCuenta()  ?>
-                                        name="n_cuenta" type="text" />
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value=<?php if ($res->getNCuenta() !== NULL) echo $res->getNCuenta()  ?> name="n_cuenta" type="text" />
                                 </label>
                             </div>
                             <span class="text-gray-700 dark:text-gray-400">
@@ -78,53 +73,40 @@
                             <div class="my-6">
                                 <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
 
-                                    <input type="radio"
-                                        class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                        name="rol" value="0" <?php if ($res->getRol() === 0) echo 'checked' ?> />
+                                    <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="rol" value="0" <?php if ($res->getRol() === 0) echo 'checked' ?> />
                                     <span class="ml-2">Admin</span>
                                 </label>
                                 <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                                    <input type="radio"
-                                        class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                        name="rol" value="1" <?php if ($res->getRol() === 1) echo 'checked' ?> />
+                                    <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="rol" value="1" <?php if ($res->getRol() === 1) echo 'checked' ?> />
                                     <span class="ml-2">Encargado</span>
                                 </label>
                                 <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                                    <input type="radio"
-                                        class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                        name="rol" value="2" <?php if ($res->getRol() === 2) echo 'checked' ?> />
+                                    <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="rol" value="2" <?php if ($res->getRol() === 2) echo 'checked' ?> />
                                     <span class="ml-2">Socio</span>
                                 </label>
                             </div>
                             <div class="my-6">
-                                
-                                    <span class="text-gray-700 dark:text-gray-400">
-                                        Encargado
-                                    </span>
-                                    <select
-                                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                        name="encargado"
-                                        id="encargado">
-                                        <option value="<?php echo $res->getEncargado() ?>"><?php echo $res->getEncargado() ?></option>
-                                        <option value="" disabled>----------------------------</option>
-                                    </select>
-                                
-                                
+
+                                <span class="text-gray-700 dark:text-gray-400">
+                                    Encargado
+                                </span>
+                                <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="encargado" id="encargado">
+                                    <option value="<?php echo $res->getEncargado() ?>"><?php echo $res->getEncargado() ?></option>
+                                    <option value="" disabled>----------------------------</option>
+                                </select>
+
+
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Fecha de alta</span>
-                                    <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php echo $res->getFechaAlta() ?> name="fecha_alta" type="date" />
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value=<?php echo $res->getFechaAlta() ?> name="fecha_alta" type="date" />
                                 </label>
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Fecha de baja</span>
-                                    <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php echo $res->getFechaBaja() ?> name="fecha_baja" type="date" />
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value=<?php echo $res->getFechaBaja() ?> name="fecha_baja" type="date" />
                                 </label>
                             </div>
 
@@ -132,18 +114,14 @@
                                 <span class="text-gray-700 dark:text-gray-400">Pago</span>
                                 <label class="block text-sm">
 
-                                    <input type="checkbox"
-                                        class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                        name="pagado" value="1" <?php if ($res->getPagado() === 1) echo 'checked' ?> />
+                                    <input type="checkbox" class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="pagado" value="1" <?php if ($res->getPagado() === 1) echo 'checked' ?> />
                                 </label>
                             </div>
                             <div class="flex space-x-6 my-6">
-                                <button type="submit"
-                                    class="m-6 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <button type="submit" class="m-6 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     Guardar
                                 </button>
-                                <a href="http://localhost/ucb/dashboard/index.php/users"
-                                    class=" px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                <a href="http://localhost/ucb/dashboard/index.php/users" class=" px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                     Cancelar
                                 </a>
                             </div>

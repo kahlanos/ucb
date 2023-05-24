@@ -17,6 +17,14 @@
 </head>
 
 <body onload="cargaEncargados()">
+<!-- CONTROL -->
+<?php
+    if (isAdmin()) {
+               
+    } else {
+        header("location: login");
+    }
+    ?>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- SIDEBAR -->
         <?php include 'sidebar.php'; ?>
@@ -60,7 +68,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Teléfono</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="phone" type="number" />
+                                        value="" name="phone" type="tel" />
                                 </label>
                             </div>
                             <div class="my-6">
