@@ -126,4 +126,12 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     $newsController->addNewsProcess();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "news" && $array_ruta[1] == "add") {
     $newsController->addNews();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "cervezas" && empty($array_ruta[1])) {
+    
+    $beerController->cervezas();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "loadBeers" && empty($array_ruta[1])) {
+    
+    echo $beerController->loadBeers();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "cervezas" && is_numeric($array_ruta[1])) {
+    $beerController->vistaBeer($array_ruta[1]);
 }

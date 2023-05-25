@@ -10,7 +10,7 @@ class newsController {
     public function loadNews()
     {
         $db = new DbNews();
-        $res = $db->getNews();
+        $res = $db->getNews(strtolower($_POST['search']));
 
         return $res;
     }

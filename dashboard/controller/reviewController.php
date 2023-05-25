@@ -42,7 +42,12 @@ class reviewController
         $db->addReview($_SESSION['userId'], $idBeer, $_SESSION['rol'], $_POST['score'], $_POST['comment'], $date);
 
 
-        header("location: ../../index.php/beers");
+        if (isAdmin() || isEncargado()) {
+            header("location: ../../index.php/beers");
+        } else if (isSocio()) {
+            header("location: ../../../index.php/cervezas");
+        }
+        
     }
 
     function loadFilters() {

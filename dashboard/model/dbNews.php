@@ -2,7 +2,7 @@
 
 class dbNews {
 
-    public function getnews()
+    public function getnews($search)
     {
 
         try {
@@ -11,9 +11,16 @@ class dbNews {
 
             $con = new Conexion();
             $db = $con->getConexion();
+
+            if ($search != "") {
+                
+                $like = "WHERE LOWER(title) LIKE '%$search%'";
+            } else {
+                $like = '';
+            }
             
 
-            $sql = "SELECT * FROM news LIMIT 12";
+            $sql = "SELECT * FROM news ".$like." LIMIT 12";
             $res = $db->query($sql);
 
             foreach ($res as $u) {

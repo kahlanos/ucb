@@ -9,6 +9,11 @@ class beerController
         require("view/list_beers.php");
     }
 
+    public function cervezas()
+    {
+        require("view/list_cervezas.php");
+    }
+
     public function loadBeers()
     {
         $db = new DbBeer();
@@ -24,6 +29,15 @@ class beerController
         $res = $db->getBeerById($id);
 
         require("view/ficha_beer.php");
+    }
+
+    public function vistaBeer($id)
+    {
+
+        $db = new dbBeer();
+        $res = $db->getBeerById($id);
+
+        require("view/vista_beer.php");
     }
 
     public function editBeer($id)

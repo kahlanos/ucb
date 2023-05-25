@@ -42,7 +42,7 @@ class userController {
             $_SESSION["userId"] = $res['id'];
             $_SESSION["rol"] = $res['rol'];
 
-            header("location: ../../index.php/home");
+            header("location: ../../index.php/cervezas");
 
         }else {
             //require("view/login.php");

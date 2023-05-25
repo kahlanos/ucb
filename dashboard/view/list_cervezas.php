@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UCC</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="../view/assets/css/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="../view/assets/js/init-alpine.js"></script>
@@ -16,6 +17,7 @@
     <!-- CONTROL -->
     <?php
     if (isAdmin() || isEncargado() || isSocio()) {
+               
     } else {
         header("location: login");
     }
@@ -30,17 +32,12 @@
 
                 <div class="container px-6 mx-auto grid">
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                        Noticias
+                        Valora nuestras Cervezas
                     </h2>
-
                     <div class="flex flex-row px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 gap-6 ">
-                        <div class="flex">
-                            <a href="http://localhost/ucb/dashboard/index.php/news/add" class=" px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                                Añadir
-                            </a>
-                        </div>
-                       <!-- Search input -->
-                       <div class="flex justify-center flex-1 lg:mr-32">
+                            
+                            <!-- Search input -->
+                            <div class="flex justify-center flex-1 lg:mr-32">
                                 <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
                                     <div class="absolute inset-y-0 flex items-center pl-2">
                                         <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -48,10 +45,11 @@
                                         </svg>
                                     </div>
                                     <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" 
-                                    onkeyup="pinta()" value="" type="text" id="search" placeholder="Busca por título" aria-label="Search" />
+                                    onkeyup="pinta()" value="" type="text" id="search" placeholder="Busca por nombre" aria-label="Search" />
                                 </div>
                             </div>
-                    </div>
+
+                        </div>
                     <div class="w-full overflow-hidden rounded-lg shadow-xs">
                         <div class="w-full overflow-x-auto">
                             <table id="tabla" class="w-full whitespace-no-wrap">
@@ -61,8 +59,7 @@
                     </div>
                 </div>
             </main>
-
-
-            <script src="../view/assets/js/news.js" defer></script>
-
+        </div>
+    </div>
+    <script src="../view/assets/js/cervezas.js" defer></script>
 </body>
