@@ -31,6 +31,15 @@ class reviewController
         require("view/add_review.php");
     }
 
+    public function seeReview($id)
+    {
+
+        $db = new dbReview();
+        $comment = $db->getReviewById($id);
+
+        require("view/vista_review.php");
+    }
+
     public function addReview($idBeer)
     {
 
@@ -43,7 +52,7 @@ class reviewController
 
 
         if (isAdmin() || isEncargado()) {
-            header("location: ../../index.php/beers");
+            header("location: ../../../index.php/beers");
         } else if (isSocio()) {
             header("location: ../../../index.php/cervezas");
         }
@@ -56,5 +65,22 @@ class reviewController
         $res = $db->getBeersByName();
 
         return $res;
+    }
+
+    public function deleteReview($id)
+    {
+        $db = new dbReview();
+        $db->deleteReview($id);
+
+        header("location: ../../index.php/reviews");
+    }
+
+    public function editReview($id) {
+
+        $db = new DbReview();
+
+        $db->editReview($id, $_POST['comment']);
+
+        header("location: ../../../index.php/reviews");
     }
 }

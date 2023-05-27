@@ -69,12 +69,15 @@ function construirFila(datos) {
     linea.appendChild(titulo);
 
     var titulo = document.createElement('td');
-    titulo.className = "phone px-4 py-3 text-sm";
-    if (datos.fecha_distrib == '0000-00-00') {
-        titulo.innerHTML = 'N/A';
+    titulo.className = "comment px-4 py-3 text-sm max-w-xs";
+    var p = document.createElement('p');
+    p.className = "break-words ";
+    if (datos.comment == '') {
+        p.innerHTML = 'N/A';
     } else {
-        titulo.innerHTML = datos.comment;
+        p.innerHTML = datos.comment;
     }   
+    titulo.appendChild(p);
     linea.appendChild(titulo);
 
 
@@ -91,7 +94,7 @@ function construirFila(datos) {
 
     var a = document.createElement('a');
     a.className = 'flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray';
-    a.href = 'review/' + datos.id;
+    a.href = 'reviews/' + datos.id;
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.classList.add('w-5');
     svg.classList.add('h-5');
@@ -117,20 +120,6 @@ function construirFila(datos) {
     svg2.appendChild(path2);
     a2.appendChild(svg2);
     div.appendChild(a2);
-
-    var btn = document.createElement('button');
-    btn.className = 'flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray';
-    btn.onclick = openModal;
-    var svg3 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg3.classList.add('w-5');
-    svg3.classList.add('h-5');
-    svg3.setAttribute('fill', 'currentColor');
-    svg3.setAttribute('viewBox', '0 0 20 20');  
-    var path3 = document.createElementNS('http://www.w3.org/2000/svg','path');
-    path3.setAttribute('d', 'M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z');
-    svg3.appendChild(path3);
-    btn.appendChild(svg3);
-    div.appendChild(btn);
     
     titulo.appendChild(div);
     linea.appendChild(titulo);

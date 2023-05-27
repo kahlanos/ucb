@@ -33,8 +33,7 @@ class dbBeer {
         }
 
         $db = NULL;
-
-
+   
         return json_encode($beers);
     }
 

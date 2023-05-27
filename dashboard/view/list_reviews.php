@@ -79,7 +79,7 @@
                     </div>
                     <div class="w-full overflow-hidden rounded-lg shadow-xs">
                         <div class="w-full overflow-x-auto">
-                            <table id="tabla" class="w-full whitespace-no-wrap">
+                            <table id="tabla" class="w-full whitespace-no-wrap table-fixed">
 
                             </table>
                         </div>

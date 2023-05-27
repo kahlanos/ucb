@@ -44,7 +44,7 @@ class dbReview
                 $sqlBeer = "";
             }
 
-            $sql = "SELECT * FROM reviews r JOIN beers b on r.id_beer = b.id " . $sqlTipo . " " . $sqlBeer;
+            $sql = "SELECT r.id as idRev, id_user, nombre, tipo, score, comment, date FROM reviews r JOIN beers b on r.id_beer = b.id " . $sqlTipo . " " . $sqlBeer;
             $res = $db->query($sql);
 
 
@@ -53,7 +53,7 @@ class dbReview
                 $res2 = $db->query($sql2);
                 $user = $res2->fetch();
 
-                $rev = new Review($u['id'], $u['id_user'], $u['nombre'], $u['tipo'], $u['score'], $u['comment'], $u['date']);
+                $rev = new Review($u['idRev'], $u['id_user'], $u['nombre'], $u['tipo'], $u['score'], $u['comment'], $u['date']);
 
                 $rev->setUser($user['nombre']);
                 $revs[] = $rev;
@@ -66,5 +66,63 @@ class dbReview
 
 
         return json_encode($revs);
+    }
+
+    public function deleteReview($id) {
+
+        try {
+
+            $con = new Conexion();
+            $db = $con->getConexion();
+
+            $sql = "DELETE FROM reviews WHERE id = '$id'";
+            $res = $db->query($sql);
+
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+        $db = NULL;
+    }
+
+    public function getReviewById($id)
+    {
+
+        try {
+
+            $con = new Conexion();
+            $db = $con->getConexion();
+
+            $sql = "SELECT * FROM reviews WHERE id = '$id'";
+            $r = $db->query($sql);
+            $u = $r->fetch();
+
+            $comment = $u['comment'];
+            //$review = new Review($u['id'], $u['title'], $u['estilo'], $u['descripcion'], $u['fecha_fabric'], $u['fecha_distrib'], $u['consumo_pref'], $u['alcohol'], $u['temp_guardado'], $u['ibus'], $u['img_tapon'], $u['img_botella'], $u['detalles']);
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+        return $comment;
+    }
+
+    public function editReview($id, $comment) {
+
+        try {
+
+            $con = new Conexion();
+            $db = $con->getConexion();
+
+            $sql = "UPDATE reviews SET comment = '$comment' WHERE id = '$id'";
+            $r = $db->query($sql);
+
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+        
     }
 }

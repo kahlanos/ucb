@@ -4,7 +4,7 @@ const Color = require('color')
 
 module.exports = {
   // purge: ['public/**/*.html'],
-  // purge: ['view/**/*.{php, html, js}'],
+  content: ['view/**/*.{php, html, js}'],
   theme: {
     themeVariants: ['dark'],
     customForms: (theme) => ({

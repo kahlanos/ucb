@@ -65,6 +65,8 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     $userController->addUserProcess();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "users" && $array_ruta[1] == "add") {
     $userController->addUser();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "cambiaEstadoPago" && empty($array_ruta[1])) {
+    $userController->cambiaEstado();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "beers" && empty($array_ruta[1])) {
     
     $beerController->beers();
@@ -87,12 +89,15 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     $reviewController->addReview($array_ruta[1]);
 }  else if (isset($array_ruta[0]) && $array_ruta[0] == "review" && is_numeric($array_ruta[1])) {
     $reviewController->review($array_ruta[1]);
-// } else if (isset($array_ruta[0]) && $array_ruta[0] == "reviews" && $array_ruta[1] == "loadFilters") {
-    
-//     echo $reviewController->loadFilters();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "reviewDelete" && is_numeric($array_ruta[1])) {
+    $reviewController->deleteReview($array_ruta[1]);
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "reviews" && empty($array_ruta[1])) {
     
     $reviewController->reviews();
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "reviews" && is_numeric($array_ruta[1]) && !empty($array_ruta[2]) && $array_ruta[2] == "process") {
+    $reviewController->editReview($array_ruta[1]);
+}  else if (isset($array_ruta[0]) && $array_ruta[0] == "reviews" && is_numeric($array_ruta[1])) {
+    $reviewController->seeReview($array_ruta[1]);
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "loadReviews" && empty($array_ruta[1])) {
     
     echo $reviewController->loadReviews();
@@ -134,4 +139,8 @@ if (isset($array_ruta[0]) && $array_ruta[0] == "login" && empty($array_ruta[1]))
     echo $beerController->loadBeers();
 } else if (isset($array_ruta[0]) && $array_ruta[0] == "cervezas" && is_numeric($array_ruta[1])) {
     $beerController->vistaBeer($array_ruta[1]);
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "profile" && is_numeric($array_ruta[1]) && !empty($array_ruta[2]) && $array_ruta[2] == "process") {
+    $userController->editUserProfile($array_ruta[1]);
+} else if (isset($array_ruta[0]) && $array_ruta[0] == "profile" && is_numeric($array_ruta[1])) {
+    $userController->profile($array_ruta[1]);
 }

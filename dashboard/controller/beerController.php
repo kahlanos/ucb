@@ -18,6 +18,7 @@ class beerController
     {
         $db = new DbBeer();
         $res = $db->getBeers(strtolower($_POST['search']));
+        //var_dump($res);
 
         return $res;
     }

@@ -44,17 +44,15 @@ class dbUser
             $user = new User($u['id'], $u['nombre'], $u['email'], $u['password'], $u['phone'], $u['n_cuenta'], $u['rol'], $u['fecha_alta'], $u['pagado']);
 
             $enc = $u['encargado'];
-            $sql2 = "SELECT nombre FROM users WHERE id ='".$enc."'";
+            $sql2 = "SELECT nombre FROM users WHERE id ='" . $enc . "'";
             $res = $db->query($sql2);
             $e = $res->fetch();
 
-            if (isset($e) && $e!= FALSE) {
+            if (isset($e) && $e != FALSE) {
                 $user->setEncargado($e['nombre']);
             } else {
                 $user->setEncargado("N/A");
             }
-
-
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -76,23 +74,23 @@ class dbUser
             $db = $con->getConexion();
 
             if ($search != "") {
-                
+
                 $like = "WHERE LOWER(nombre) LIKE '%$search%'";
             } else {
                 $like = '';
             }
 
-            $sql = "SELECT * FROM users ".$like. " LIMIT 12";
+            $sql = "SELECT * FROM users " . $like . " LIMIT 12";
             $res = $db->query($sql);
 
             foreach ($res as $u) {
                 $user = new User($u['id'], $u['nombre'], $u['email'], $u['password'], $u['phone'], $u['n_cuenta'], $u['rol'], $u['fecha_alta'], $u['pagado']);
                 $enc = $u['encargado'];
-                $sql2 = "SELECT nombre FROM users WHERE id ='".$enc."'";
+                $sql2 = "SELECT nombre FROM users WHERE id ='" . $enc . "'";
                 $res2 = $db->query($sql2);
                 $e = $res2->fetch();
 
-                if (isset($e) && $e!= FALSE) {
+                if (isset($e) && $e != FALSE) {
                     $user->setEncargado($e['nombre']);
                 } else {
                     $user->setEncargado("N/A");
@@ -138,7 +136,8 @@ class dbUser
         }
     }
 
-    public function addUser($nombre, $email, $password, $phone, $n_cuenta,  $rol, $encargado, $fecha_alta, $fecha_baja, $pagado) {
+    public function addUser($nombre, $email, $password, $phone, $n_cuenta,  $rol, $encargado, $fecha_alta, $fecha_baja, $pagado)
+    {
 
         try {
 
@@ -159,14 +158,13 @@ class dbUser
 
             $sql = "INSERT into users (nombre, email, password, phone, n_cuenta, rol, encargado, fecha_alta, fecha_baja, pagado) values('$nombre', '$email', '$encryptedPass', '$phone', '$n_cuenta', '$rol', '$idEnc', '$fecha_alta', '$fecha_baja', '$pagado')";
             $db->query($sql);
-
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
-
     }
 
-    public function deleteUser($id) {
+    public function deleteUser($id)
+    {
 
         try {
 
@@ -175,36 +173,86 @@ class dbUser
 
             $sql = "DELETE FROM users WHERE id = '$id'";
             $res = $db->query($sql);
-
-
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }
 
-    public function getEncargadosNombre() {
+    public function getEncargadosNombre()
+    {
         try {
 
-           $enc = [];
+            $enc = [];
 
-           $con = new Conexion();
-           $db = $con->getConexion();
+            $con = new Conexion();
+            $db = $con->getConexion();
 
-           $sql = "SELECT nombre FROM users WHERE rol = 0 || rol = 1";
-           $res = $db->query($sql);
-           
+            $sql = "SELECT nombre FROM users WHERE rol = 0 || rol = 1";
+            $res = $db->query($sql);
 
-           foreach( $res as $c) {
-               $enc[] = $c['nombre'];
-           }
 
+            foreach ($res as $c) {
+                $enc[] = $c['nombre'];
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+        $db = NULL;
+
+        return json_encode($enc);
+    }
+
+    public function cambiaEstado($id)
+    {
+
+        try {
+
+            $con = new Conexion();
+            $db = $con->getConexion();
+
+            $sql = "SELECT pagado FROM users WHERE id = '$id'";
+            $res = $db->query($sql);
+            $i = $res->fetch();
+
+            if ($i['pagado'] == 0) {
+                $newEstado = 1;
+            } else {
+                $newEstado = 0;
+            }
+
+            $sql2 = "UPDATE users set pagado = '$newEstado' WHERE id = '$id'";
+            $db->query($sql2);
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $db = NULL;
+    }
+
+    public function editUserProfile($id, $nombre, $email, $password, $phone, $n_cuenta) {
+
+        try {
+
+            $con = new Conexion();
+            $db = $con->getConexion();
+
+            if ($password != "") {
+                $encryptedPass = sha1($password);
+            } else {
+                $sql2 = "SELECT password FROM users WHERE id = '$id'";
+                $res = $db->query($sql2);
+                $p = $res->fetch();
+                $encryptedPass = sha1($p['password']);
+            }
+
+            $encryptedPass = sha1($password);
+
+            $sql = "UPDATE users set nombre = '$nombre', email = '$email', password = '$encryptedPass', phone = '$phone', n_cuenta = '$n_cuenta'
+             WHERE id = '$id'";
+            $db->query($sql);
 
         } catch (PDOException $e) {
-           echo "Error: " . $e->getMessage();
-       }
-
-       $db = NULL;
-
-       return json_encode($enc);
-   }
+            echo "Error: " . $e->getMessage();
+        }
+    }
 }

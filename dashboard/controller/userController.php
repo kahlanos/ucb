@@ -98,7 +98,20 @@ class userController {
 
         $db->editUser($id,$_POST['nombre'],$_POST['email'],$_POST['password'],$_POST['phone'], $_POST['n_cuenta'], $rol, $_POST['encargado'], $_POST['fecha_alta'], $_POST['fecha_baja'], $pago);
 
-        header("location: ../../../index.php/users");
+        if (isAdmin() || isEncargado()) {
+            header("location: ../../../index.php/users");
+        } else if (isSocio()) {
+            header("location: ../../../index.php/cervezas");
+        }    
+    }
+
+    public function editUserProfile($id) {
+
+        $db = new DbUser();
+
+        $db->editUserProfile($id,$_POST['nombre'],$_POST['email'],$_POST['password'],$_POST['phone'], $_POST['n_cuenta']);
+
+        header("location: ../../../index.php/cervezas");
     }
 
     public function addUser() {
@@ -133,6 +146,22 @@ class userController {
         $db->deleteUser($id);
 
         header("location: ../../index.php/users");
+    }
+
+    public function cambiaEstado() {
+
+        $db = new dbUser();
+
+        $db->cambiaEstado($_POST['id']);
+    }
+
+    public function profile($id) {
+
+        $db = new dbUser();
+
+        $res = $db->getUserById($id);
+
+        require("view/profile.php");
     }
 
 }

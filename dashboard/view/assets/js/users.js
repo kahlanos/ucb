@@ -94,8 +94,12 @@ function construirFila(datos) {
     linea.appendChild(titulo);
 
     var titulo = document.createElement('td');
+    var btn = document.createElement('button');
     var span = document.createElement('span');
-    titulo.className = "pagado px-4 py-3 text-sm";
+    //btn.className = "inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]";
+    btn.type = "button";
+    btn.addEventListener('click', () => {cambiaEstadoPago(datos.id)});
+    titulo.className = "estado px-4 py-3 text-sm";
     if (datos.pagado === 0) {
         span.innerHTML = 'Pendiente';
         span.className = 'px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600';
@@ -103,7 +107,8 @@ function construirFila(datos) {
         span.innerHTML = 'Pagado';
         span.className = 'px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100';
     } 
-    titulo.appendChild(span);
+    btn.appendChild(span);
+    titulo.appendChild(btn);
     linea.appendChild(titulo);
 
     var titulo = document.createElement('td');
@@ -219,4 +224,30 @@ function construirCabecera() {
 
     head.appendChild(cabecera);
     return head;
+}
+
+function cambiaEstadoPago(id) {
+
+    event.preventDefault();
+
+    var urlBase = "http://localhost/ucb/dashboard/index.php/";
+    var accion = "cambiaEstadoPago";
+
+    
+    var params = "id="+id;
+
+    xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            
+            pinta();
+        } 
+            
+    };
+
+    xmlhttp.open("POST", urlBase + accion, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //para poder pasar parámetros
+    xmlhttp.send(params);
+
 }
