@@ -69,8 +69,8 @@ function construirFila(datos) {
     linea.appendChild(titulo);
 
     var titulo = document.createElement('td');
-    titulo.className = "phone px-4 py-3 text-sm";
-    if (datos.fecha_distrib == '0000-00-00') {
+    titulo.className = "date px-4 py-3 text-sm";
+    if (datos.date == '0000-00-00') {
         titulo.innerHTML = 'N/A';
     } else {
         titulo.innerHTML = datos.date;

@@ -20,7 +20,7 @@ class dbReview
         $db = NULL;
     }
 
-    public function getReviews($tipo, $beer)
+    public function getReviews($tipo, $beer, $user)
     {
 
         try {
@@ -44,7 +44,19 @@ class dbReview
                 $sqlBeer = "";
             }
 
-            $sql = "SELECT r.id as idRev, id_user, nombre, tipo, score, comment, date FROM reviews r JOIN beers b on r.id_beer = b.id " . $sqlTipo . " " . $sqlBeer;
+            if ($user != "") {
+                $sql2 = "SELECT id FROM users WHERE LOWER(nombre) LIKE '%$user%'";
+                $res2 = $db->query($sql2);
+                $user = $res2->fetch();
+                $userId = $user['id'];
+
+                $sqlUser = "AND id_user = '$userId'";
+            } else {
+                $sqlUser = '';
+            }
+
+
+            $sql = "SELECT r.id as idRev, id_user, nombre, tipo, score, comment, date FROM reviews r JOIN beers b on r.id_beer = b.id " . $sqlTipo . " " . $sqlBeer. " ". $sqlUser;
             $res = $db->query($sql);
 
 
@@ -52,6 +64,7 @@ class dbReview
                 $sql2 = "SELECT nombre FROM users WHERE id = " . $u['id_user'] . "";
                 $res2 = $db->query($sql2);
                 $user = $res2->fetch();
+
 
                 $rev = new Review($u['idRev'], $u['id_user'], $u['nombre'], $u['tipo'], $u['score'], $u['comment'], $u['date']);
 
@@ -68,7 +81,8 @@ class dbReview
         return json_encode($revs);
     }
 
-    public function deleteReview($id) {
+    public function deleteReview($id)
+    {
 
         try {
 
@@ -77,8 +91,6 @@ class dbReview
 
             $sql = "DELETE FROM reviews WHERE id = '$id'";
             $res = $db->query($sql);
-
-
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -99,16 +111,18 @@ class dbReview
             $u = $r->fetch();
 
             $comment = $u['comment'];
-            //$review = new Review($u['id'], $u['title'], $u['estilo'], $u['descripcion'], $u['fecha_fabric'], $u['fecha_distrib'], $u['consumo_pref'], $u['alcohol'], $u['temp_guardado'], $u['ibus'], $u['img_tapon'], $u['img_botella'], $u['detalles']);
+            $user = $u['id_user'];
 
+            $res = [$comment, $user];
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
 
-        return $comment;
+        return $res;
     }
 
-    public function editReview($id, $comment) {
+    public function editReview($id, $comment)
+    {
 
         try {
 
@@ -117,12 +131,8 @@ class dbReview
 
             $sql = "UPDATE reviews SET comment = '$comment' WHERE id = '$id'";
             $r = $db->query($sql);
-
-
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
-
-        
     }
 }

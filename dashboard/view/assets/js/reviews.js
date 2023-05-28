@@ -8,8 +8,9 @@ function pinta() {
 
     var selectTypes = document.getElementById('type');
     var selectBeers = document.getElementById('beers');
+    var search = document.getElementById('search');
 
-    var params = "tipo="+selectTypes.selectedOptions[0].value+"&beer="+selectBeers.selectedOptions[0].value;
+    var params = "tipo="+selectTypes.selectedOptions[0].value+"&beer="+selectBeers.selectedOptions[0].value+'&user='+search.value;
 
     xmlhttp = new XMLHttpRequest();
 
@@ -101,7 +102,7 @@ function construirFila(datos) {
     svg.setAttribute('fill', 'currentColor');
     svg.setAttribute('viewBox', '0 0 20 20');  
     var path = document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d', 'M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z');
+    path.setAttribute('d', 'M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z');
     svg.appendChild(path);
     a.appendChild(svg);
     div.appendChild(a);

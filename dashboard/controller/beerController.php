@@ -6,18 +6,25 @@ class beerController
 
     public function beers()
     {
+
+        $db = new DbBeer();
+        $res = $db->getYears();
+
         require("view/list_beers.php");
     }
 
     public function cervezas()
     {
+        $db = new DbBeer();
+        $res = $db->getYears();
+
         require("view/list_cervezas.php");
     }
 
     public function loadBeers()
     {
         $db = new DbBeer();
-        $res = $db->getBeers(strtolower($_POST['search']));
+        $res = $db->getBeers(strtolower($_POST['search']), $_POST['year']);
         //var_dump($res);
 
         return $res;

@@ -5,7 +5,8 @@ function pinta() {
     var accion = "loadBeers";
 
     var search = document.getElementById('search');
-    var params = "search="+search.value;
+    var year = document.getElementById('year');
+    var params = "search="+search.value+"&year="+year.selectedOptions[0].value;
 
     xmlhttp = new XMLHttpRequest();
 
@@ -83,7 +84,7 @@ function construirFila(datos) {
     if (datos.img_tapon != "") {
         var img = document.createElement('img');
         img.src = '../view/assets/img/tapones/' + datos.id + '/' + datos.img_tapon;
-        img.className = 'w-12 h-12 rounded-lg';
+        img.className = 'w-12 h-12 rounded-full';
         titulo.appendChild(img);
     }   
     linea.appendChild(titulo);

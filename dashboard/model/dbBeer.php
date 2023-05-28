@@ -3,7 +3,7 @@
 class dbBeer {
 
 
-    public function getBeers($search)
+    public function getBeers($search, $year)
     {
 
         try {
@@ -20,7 +20,19 @@ class dbBeer {
                 $like = '';
             }
 
-            $sql = "SELECT * FROM beers ".$like." LIMIT 12";
+            $currentYear = date("Y");
+
+            if ($year != "" && $search != "") {
+                $likeYear = "AND fecha_distrib LIKE '$year%'";
+            } else if($year != "" && $search == "") {
+                $likeYear = "WHERE fecha_distrib LIKE '$year%'";
+            } else if ($year == "" && $search == ""){
+                $likeYear = "WHERE fecha_distrib LIKE '$currentYear%'";
+            } else {
+                $likeYear = '';
+            }
+
+            $sql = "SELECT * FROM beers ".$like." ".$likeYear." LIMIT 12";
             $res = $db->query($sql);
 
             foreach ($res as $u) {
@@ -155,6 +167,33 @@ class dbBeer {
         $db = NULL;
  
         return $beers;
+    }
+
+    public function getYears() {
+
+        try {
+
+            $years = [];
+
+            $con = new Conexion();
+            $db = $con->getConexion();
+
+            $sql = "SELECT  fecha_distrib FROM beers";
+            $res = $db->query($sql);
+
+            foreach($res as $r) {
+                if (!in_array(substr($r['fecha_distrib'],0,4), $years, true)) {
+                    $years[] = substr($r['fecha_distrib'],0,4);
+                } 
+            }
+
+        }catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+        return $years;
+
+  
     }
 
 

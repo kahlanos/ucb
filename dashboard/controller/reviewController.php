@@ -17,7 +17,7 @@ class reviewController
         
         
         $db = new dbReview();
-        $res = $db->getReviews($_POST['tipo'], $_POST['beer']);
+        $res = $db->getReviews($_POST['tipo'], $_POST['beer'], $_POST['user']);
 
         return $res;
     }
@@ -35,7 +35,7 @@ class reviewController
     {
 
         $db = new dbReview();
-        $comment = $db->getReviewById($id);
+        $res = $db->getReviewById($id);
 
         require("view/vista_review.php");
     }
@@ -51,9 +51,9 @@ class reviewController
         $db->addReview($_SESSION['userId'], $idBeer, $_SESSION['rol'], $_POST['score'], $_POST['comment'], $date);
 
 
-        if (isAdmin() || isEncargado()) {
+        if (isAdmin() ) {
             header("location: ../../../index.php/beers");
-        } else if (isSocio()) {
+        } else if (isSocio() || isEncargado()) {
             header("location: ../../../index.php/cervezas");
         }
         

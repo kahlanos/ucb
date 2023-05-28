@@ -5,7 +5,8 @@ function pinta() {
     var accion = "loadBeers";
 
     var search = document.getElementById('search');
-    var params = "search="+search.value;
+    var year = document.getElementById('year');
+    var params = "search="+search.value+"&year="+year.selectedOptions[0].value;
 
     xmlhttp = new XMLHttpRequest();
 
@@ -16,17 +17,24 @@ function pinta() {
             var resultados=JSON.parse(this.responseText);
             console.log(resultados);
             
-            var tabla = document.getElementById("tabla");
-            tabla.innerHTML = "";
-            var body = document.createElement('tbody');
-            body.className = 'bg-white divide-y dark:divide-gray-700 dark:bg-gray-800';
-            var cabecera = construirCabecera();
-            tabla.appendChild(cabecera);
+            // var tabla = document.getElementById("tabla");
+            // tabla.innerHTML = "";
+            // var body = document.createElement('tbody');
+            // body.className = 'bg-white divide-y dark:divide-gray-700 dark:bg-gray-800';
+            // var cabecera = construirCabecera();
+            // tabla.appendChild(cabecera);
+
+            var container = document.getElementById('content');
+            container.innerHTML = "";
 
             for (let i = 0; i < resultados.length; i++) {
-                let fila = construirFila(resultados[i]);
-                body.appendChild(fila);
-                tabla.appendChild(body);
+
+                let card = construirCard(resultados[i]);
+                container.appendChild(card);
+
+                // let fila = construirFila(resultados[i]);
+                // body.appendChild(fila);
+                // tabla.appendChild(body);
             }
         }
     };
@@ -34,6 +42,73 @@ function pinta() {
     xmlhttp.open("POST", urlBase + accion, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //para poder pasar parámetros
     xmlhttp.send(params);
+
+}
+
+function construirCard(datos) {
+
+    var card = document.createElement('div');
+    card.className = "rounded-lg shadow-md dark:bg-gray-800 my-6";
+
+    var div1 = document.createElement('div');
+    div1.className = "flex flex-wrap gap-12 p-6";
+    var img = document.createElement('img');
+    img.className = "w-20 h-20 rounded-full";
+    img.src = "../view/assets/img/tapones/"+ datos.id + '/' + datos.img_tapon;
+    div1.appendChild(img);
+    var h2 = document.createElement('h2');
+    h2.className = "my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200";
+    h2.innerHTML = datos.nombre;
+    div1.appendChild(h2);
+
+    var div1_1 = document.createElement('div');
+    div1_1.className = "ml-6 rounded-lg shadow-md dark:bg-gray-100";
+    var h2_2 = document.createElement('h2');
+    h2_2.className = "text-xl font-semibold text-gray-700 dark:text-gray-200 p-6";
+    h2_2.innerHTML = datos.alcohol + "% alc. \t" +datos.ibus+ " IBU";
+    div1_1.appendChild(h2_2);
+
+    div1.appendChild(div1_1);
+
+    var div2 = document.createElement('div');
+    div2.className = "mx-6 p-6 w-full";
+    var p = document.createElement('p');
+    p.className = "p-6 text-gray-600 dark:text-gray-400 justify-center";
+    p.innerHTML = datos.descripcion;
+    div2.appendChild(p);
+
+    var div3 = document.createElement('div');
+    div3.className = "flex flex-wrap gap-12 p-6 justify-center";
+    var div3_3 = document.createElement('div');
+    div3_3.className = "my-6 ";
+    var a = document.createElement('a');
+    a.className = "px-10 py-4 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple";
+    a.href = "http://localhost/ucb/dashboard/index.php/review/"+datos.id;
+    a.innerHTML = "Valorar";
+    div3_3.appendChild(a);
+    div3.appendChild(div3_3);
+
+    var div3_2 = document.createElement('div');
+    div3_2.className = "ml-6 rounded-lg shadow-md dark:bg-gray-100 ";
+    var h2_3 = document.createElement('h2');
+    h2_3.className = "font-semibold text-gray-700 dark:text-gray-200 p-6";
+    h2_3.innerHTML = "Consumo preferente: "+datos.consumo_pref;
+    div3_2.appendChild(h2_3);
+    div3.appendChild(div3_2);
+
+    var div3_1 = document.createElement('div');
+    div3_1.className = "ml-6 rounded-lg shadow-md dark:bg-gray-100 ";
+    var h2_1 = document.createElement('h2');
+    h2_1.className = "font-semibold text-gray-700 dark:text-gray-200 p-6";
+    h2_1.innerHTML = "temperatura de guardado aproximada: "+datos.temp_guardado+"ºC";
+    div3_1.appendChild(h2_1);
+    div3.appendChild(div3_1);
+
+    card.appendChild(div1);
+    card.appendChild(div2);
+    card.appendChild(div3);
+
+    return card;
 
 }
 
@@ -83,7 +158,7 @@ function construirFila(datos) {
     if (datos.img_tapon != "") {
         var img = document.createElement('img');
         img.src = '../view/assets/img/tapones/' + datos.id + '/' + datos.img_tapon;
-        img.className = 'w-12 h-12 rounded-lg';
+        img.className = 'w-12 h-12 rounded-full';
         titulo.appendChild(img);
     }   
     linea.appendChild(titulo);
