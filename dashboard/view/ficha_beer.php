@@ -40,7 +40,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Nombre</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value='<?php echo $res->getNombre() ?>' name="nombre" type="text" />
+                                        value='<?php echo $res->getNombre() ?>' name="nombre" type="text" required/>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -48,7 +48,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Estilo</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value='<?php echo $res->getEstilo()  ?>' name="estilo" type="text" />
+                                        value='<?php echo $res->getEstilo()  ?>' name="estilo" type="text" required/>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -56,7 +56,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Descripción</span>
                                     <textarea
                                         class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                        rows="3" name="descripcion"><?php echo $res->getDescripcion() ?></textarea>
+                                        rows="3" name="descripcion" required><?php echo $res->getDescripcion() ?></textarea>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -64,7 +64,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Fecha de fabricación</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php echo $res->getFechaFabric() ?> name="fecha_fabric" type="date" />
+                                        value=<?php echo $res->getFechaFabric() ?> name="fecha_fabric" type="date" required/>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -72,7 +72,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Fecha de distribución</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value=<?php echo $res->getFechaDistrib() ?> name="fecha_distrib" type="month" />
+                                        value=<?php echo $res->getFechaDistrib() ?> name="fecha_distrib" type="month" required/>
                                 </label>
                             </div>
 
@@ -91,7 +91,7 @@
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                         value=<?php echo $res->getAlcohol() ?> name="alcohol" type="number"
-                                        step="0.1" />
+                                        step="0.1" required/>
                                 </label>
 
                             </div>

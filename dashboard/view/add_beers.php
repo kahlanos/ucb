@@ -10,10 +10,7 @@
     <link rel="stylesheet" href="../../view/assets/css/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="../../view/assets/js/init-alpine.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-    <script src="../../view/assets/js/charts-lines.js" defer></script>
-    <script src="../../view/assets/js/charts-pie.js" defer></script>
+ 
 </head>
 
 <body onload="cargaEncargados()">
@@ -44,7 +41,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Nombre</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value='' name="nombre" type="text" />
+                                        value='' name="nombre" type="text" required/>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -52,7 +49,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Estilo</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value='' name="estilo" type="text" />
+                                        value='' name="estilo" type="text" required/>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -60,7 +57,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Descripción</span>
                                     <textarea
                                         class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                        rows="3" name="descripcion"></textarea>
+                                        rows="3" name="descripcion" required></textarea>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -68,7 +65,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Fecha de fabricación</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="fecha_fabric" type="date" />
+                                        value="" name="fecha_fabric" type="date" required/>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -76,7 +73,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Fecha de distribución</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="fecha_distrib" type="month" />
+                                        value="" name="fecha_distrib" type="month" required/>
                                 </label>
                             </div>
 
@@ -94,7 +91,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Nivel de alcohol</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="alcohol" type="number" step="0.1" />
+                                        value="" name="alcohol" type="number" step="0.1" required/>
                                 </label>
 
                             </div>

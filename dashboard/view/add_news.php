@@ -10,10 +10,7 @@
     <link rel="stylesheet" href="../../view/assets/css/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="../../view/assets/js/init-alpine.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-    <script src="../../view/assets/js/charts-lines.js" defer></script>
-    <script src="../../view/assets/js/charts-pie.js" defer></script>
+
 </head>
 
 <body onload="cargaEncargados()">
@@ -44,7 +41,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Título</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value='' name="title" type="text" />
+                                        value='' name="title" type="text" required/>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -52,7 +49,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Texto</span>
                                     <textarea
                                         class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                        rows="4" name="text"></textarea>
+                                        rows="4" name="text" required></textarea>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -60,7 +57,7 @@
                                     <span class="text-gray-700 dark:text-gray-400">Fecha</span>
                                     <input
                                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="date" type="date" />
+                                        value="" name="date" type="date" required/>
                                 </label>
                             </div>
 

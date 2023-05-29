@@ -10,18 +10,18 @@ function pinta() {
     var selectBeers = document.getElementById('beers');
     var search = document.getElementById('search');
 
-    var params = "tipo="+selectTypes.selectedOptions[0].value+"&beer="+selectBeers.selectedOptions[0].value+'&user='+search.value;
+    var params = "tipo=" + selectTypes.selectedOptions[0].value + "&beer=" + selectBeers.selectedOptions[0].value + '&user=' + search.value;
 
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
 
-            
-            
-            var resultados=JSON.parse(this.responseText);
+
+
+            var resultados = JSON.parse(this.responseText);
             console.log(resultados);
-            
+
             var tabla = document.getElementById("tabla");
             tabla.innerHTML = "";
             var body = document.createElement('tbody');
@@ -43,30 +43,31 @@ function pinta() {
 
 }
 
-function construirFila(datos) {    
+function construirFila(datos) {
     var linea = document.createElement('tr');
     linea.className = 'text-gray-700 dark:text-gray-400';
 
-    var titulo = document.createElement('td');    
+    var titulo = document.createElement('td');
     titulo.hidden = true;
     titulo.innerHTML = datos.id;
     titulo.className = "id";
     titulo.scope = "row";
     linea.appendChild(titulo);
 
-    var titulo = document.createElement('td');  
+    var titulo = document.createElement('td');
     titulo.className = "nombre px-4 py-3 text-sm";
-    titulo.innerHTML = datos.user;    
+    titulo.innerHTML = datos.user;
     linea.appendChild(titulo);
 
-    var titulo = document.createElement('td');  
-    titulo.className = "email px-4 py-3 text-sm" ;
+    var titulo = document.createElement('td');
+    titulo.className = "email px-4 py-3 text-sm";
     titulo.innerHTML = datos.beer;
     linea.appendChild(titulo);
 
-    var titulo = document.createElement('td');  
-    titulo.className = "email px-4 py-3 text-sm" ;
-    titulo.innerHTML = datos.score;
+    var titulo = document.createElement('td');
+    titulo.className = "email px-4 py-3 text-sm";
+    punt = puntuaciones(datos.score);
+    titulo.appendChild(punt);
     linea.appendChild(titulo);
 
     var titulo = document.createElement('td');
@@ -77,7 +78,7 @@ function construirFila(datos) {
         p.innerHTML = 'N/A';
     } else {
         p.innerHTML = datos.comment;
-    }   
+    }
     titulo.appendChild(p);
     linea.appendChild(titulo);
 
@@ -100,13 +101,13 @@ function construirFila(datos) {
     svg.classList.add('w-5');
     svg.classList.add('h-5');
     svg.setAttribute('fill', 'currentColor');
-    svg.setAttribute('viewBox', '0 0 20 20');  
-    var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    svg.setAttribute('viewBox', '0 0 20 20');
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', 'M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z');
     svg.appendChild(path);
     a.appendChild(svg);
     div.appendChild(a);
-    
+
 
     var a2 = document.createElement('a');
     a2.className = 'flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray';
@@ -115,13 +116,13 @@ function construirFila(datos) {
     svg2.classList.add('w-5');
     svg2.classList.add('h-5');
     svg2.setAttribute('fill', 'currentColor');
-    svg2.setAttribute('viewBox', '0 0 20 20');  
-    var path2 = document.createElementNS('http://www.w3.org/2000/svg','path');
+    svg2.setAttribute('viewBox', '0 0 20 20');
+    var path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path2.setAttribute('d', 'M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z');
     svg2.appendChild(path2);
     a2.appendChild(svg2);
     div.appendChild(a2);
-    
+
     titulo.appendChild(div);
     linea.appendChild(titulo);
 
@@ -182,14 +183,30 @@ function construirCabecera() {
     return head;
 }
 
-function openModal() {
-    
-    this.isModalOpen = true
-    this.trapCleanup = focusTrap(document.querySelector('#modal'))
-      
-}
 
-function closeModal() {
-    this.isModalOpen = false
-    this.trapCleanup()
-  }
+function puntuaciones(score) {
+
+    var div = document.createElement('div');
+    div.className = "flex items-center";
+
+    for (let i = 0; i < 5; i++) {
+        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.classList.add('w-5');
+        svg.classList.add('h-5');
+        if (score > i) {
+            svg.classList.add('text-purple-600');
+        } else {
+            svg.classList.add('text-gray-400');
+        }
+        svg.setAttribute('fill', 'currentColor');
+        svg.setAttribute('viewBox', '0 0 20 20');
+        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z');
+        svg.appendChild(path);
+
+        div.appendChild(svg);
+    }
+
+    return div;
+
+}

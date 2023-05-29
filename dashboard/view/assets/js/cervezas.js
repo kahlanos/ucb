@@ -78,7 +78,7 @@ function construirCard(datos) {
     div2.appendChild(p);
 
     var div3 = document.createElement('div');
-    div3.className = "flex flex-wrap gap-12 p-6 justify-center";
+    div3.className = "flex flex-wrap gap-12 pb-16 justify-center";
     var div3_3 = document.createElement('div');
     div3_3.className = "my-6 ";
     var a = document.createElement('a');
