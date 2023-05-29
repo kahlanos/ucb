@@ -33,38 +33,42 @@
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                         Nuevo Usuario
                     </h2>
-                    <form action="add/process" method="POST" enctype="multipart/form-data">
+                    <form action="add/process" method="POST" enctype="multipart/form-data" onSubmit="return Valida(this)">
                         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
                             <div class="my-6">
                                 <label class="block text-sm m-4">
                                     <span class="text-gray-700 dark:text-gray-400">Nombre</span>
                                     <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="nombre" type="text" required/>
+                                        class="req block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                        value="" name="nombre" type="text" id="nombre" onkeypress="return limitaTexto(event)" onblur="focoFuera(this)" />
+                                        <span></span>
                                 </label>
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Email</span>
                                     <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="email" type="email" required/>
+                                        class="req block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                        value="" name="email" type="email" id="email" onkeypress ="return limitaCorreo(event)" onblur="focoFuera(this)" />
+                                        <span></span>
                                 </label>
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Contraseña</span>
                                     <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="password" type="password" required/>
+                                        class="req block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                        value="" name="password" type="password" id="password" onblur="focoFuera(this)" />
+                                        <span></span>
                                 </label>
                             </div>
                             <div class="my-6">
                                 <label class="block text-sm">
-                                    <span class="text-gray-700 dark:text-gray-400">Teléfono</span>
+                                    <span class=" text-gray-700 dark:text-gray-400">Teléfono</span>
                                     <input
-                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                        value="" name="phone" type="tel" required/>
+                                        class="req block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                        value="" name="phone" type="tel" id="phone" onkeypress="return limitaTlfn(event)" onblur="focoFuera(this)" />
+                                        <span></span>
                                 </label>
                             </div>
                             <div class="my-6">
@@ -157,4 +161,5 @@
     </div>
 
     <script src="../../view/assets/js/loader.js"></script>
+    <script src="../../view/assets/js/validator.js"></script>
 </body>

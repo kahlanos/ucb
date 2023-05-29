@@ -251,3 +251,4 @@ function cambiaEstadoPago(id) {
     xmlhttp.send(params);
 
 }
+
